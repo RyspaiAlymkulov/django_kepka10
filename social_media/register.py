@@ -32,7 +32,7 @@ def register_social_user(provider, user_id, email, name):
 
         else:
             raise AuthenticationFailed(
-                detail='Please continue your login using ' + filtered_user_by_email[0].auth_provider)
+                detail='Пожалуйста, продолжите вход, используя Логин ' + filtered_user_by_email[0].auth_provider)
 
     else:
         user = {

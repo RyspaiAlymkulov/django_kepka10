@@ -25,7 +25,7 @@ class FacebookSocialAuthSerializer(serializers.Serializer):
         except Exception as identifier:
 
             raise serializers.ValidationError(
-                'The token  is invalid or expired. Please login again.'
+                'Токен недействителен или просрочен. Пожалуйста, войдите снова.'
             )
 
 
@@ -38,12 +38,12 @@ class GoogleSocialAuthSerializer(serializers.Serializer):
             user_data['sub']
         except:
             raise serializers.ValidationError(
-                'The token is invalid or expired. Please login again.'
+                'Токен недействителен или просрочен. Пожалуйста, войдите снова.'
             )
 
         if user_data['aud'] != os.environ.get('GOOGLE_CLIENT_ID'):
 
-            raise AuthenticationFailed('oops, who are you?')
+            raise AuthenticationFailed('Не подтвеждено')
 
         user_id = user_data['sub']
         email = user_data['email']

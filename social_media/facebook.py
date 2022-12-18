@@ -9,4 +9,4 @@ class Facebook:
             profile = graph.request('/me?fields=name,email')
             return profile
         except:
-            return "The token is invalid or expired."
+            return "Токен недействителен или просрочен."
