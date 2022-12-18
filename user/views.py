@@ -69,9 +69,9 @@ class RequestPasswordResetEmail(generics.GenericAPIView):
             email_body = 'ПРИВЕТ, \n Нажми на отпарвленное чтобы сбросить пароль  \n' + \
                          absurl
             data = {'email_body': email_body, 'to_email': user.email,
-                    'email_subject': 'Reset your passsword'}
+                    'email_subject': 'Сбросить пароль'}
             Util.send_email(data)
-        return Response({'success': 'We have sent you a link to reset your password'}, status=status.HTTP_200_OK)
+        return Response({'success': 'Мы отправили вам ссылку для сброса пароля'}, status=status.HTTP_200_OK)
 
 
 class PasswordTokenCheckAPI(generics.GenericAPIView):
@@ -82,13 +82,13 @@ class PasswordTokenCheckAPI(generics.GenericAPIView):
             id = smart_str(urlsafe_base64_decode(uidb64))
             user = CustomUser.objects.get(id=id)
             if not PasswordResetTokenGenerator().check_token(user, token):
-                return Response({'error': 'token is not valid please request a new one'})
-            return Response({'success': True, 'message': 'Credentials Valid', 'uidb64': uidb64, 'token': token},
+                return Response({'error': 'токен недействителен, запросите новый'})
+            return Response({'success': True, 'message': 'Полномочия действительны', 'uidb64': uidb64, 'token': token},
                             status=status.HTTP_200_OK)
 
         except DjangoUnicodeDecodeError as identifier:
             if not PasswordResetTokenGenerator().check_token(user):
-                return Response({'error': 'Token is not valid please request a new one'})
+                return Response({'error': 'токен недействителен, запросите новый'})
 
 
 class SetNewPasswordAPIView(generics.GenericAPIView):
@@ -97,7 +97,7 @@ class SetNewPasswordAPIView(generics.GenericAPIView):
     def patch(self, request):
         serializer = self.serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)
-        return Response({'success': True, 'message': 'Password reset success'}, status=status.HTTP_200_OK)
+        return Response({'success': True, 'message': 'Успешный сброс пароля'}, status=status.HTTP_200_OK)
 
 
 class ProfileUser(generics.GenericAPIView):
