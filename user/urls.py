@@ -20,3 +20,4 @@ urlpatterns = [
     path('profile/', views.ProfileUser.as_view()),
     path('logout/', views.LogoutAPIView.as_view()),
 ]
+
